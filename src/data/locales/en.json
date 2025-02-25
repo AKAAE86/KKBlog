@@ -1,0 +1,49 @@
+{
+  "about": {
+    "bio1": "A mobile developer enthusiastic about exploring new technologies and trends. Prior experience as an Android Developer at ByteDance (TikTok's parent company)​.Currently focused on mobile and front-end development, with a primary specialization in Android development. ",
+    "bio2": ""
+  },
+  "sections": {
+    "skills": "Skills",
+    "achievements": "Achievements",
+    "projects": "Projects"
+  },
+  "achievements": {
+    "patent": {
+      "title": "Awards",
+      "desc": "Awarded in Telegram's Development Competition",
+      "link": "https://contest.com/user/Mighty-Fly"
+    }
+  },
+  "blog": {
+    "back": "Back",
+    "notFound": "Post not found"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Douyin App",
+      "description": "Focused on social features client development for Douyin's main app",
+      "image": "/images/douyin.jpg",
+      "url": "https://www.douyin.com"
+    },
+    {
+      "id": 2, 
+      "title": "Kuaishou App",
+      "description": "Android development for live streaming functionality in Kwai app",
+      "image": "/images/kuaishou.png",
+      "url": "https://www.kuaishou.com/"
+    },
+    {
+      "id": 3,
+      "title": "Mango TV App",
+      "description": "Android development for video-on-demand system and content feed in MangoTV app",
+      "image": "/images/mangotv.jpg",
+      "url": "https://play.google.com/store/apps/details?id=com.hunantv.imgo.activity.inter"
+    }
+  ]
+} 

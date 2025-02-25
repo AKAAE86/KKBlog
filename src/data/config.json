@@ -1,0 +1,23 @@
+{
+  "personalInfo": {
+    "name": "@kkneverlie",
+    "title": "Mobile Developer",
+    "avatar": "/images/avatar.jpg",
+    "bio": "热爱技术，专注于Web开发和用户体验设计。擅长React、Node.js和云服务开发。",
+    "resumeUrl": "/files/resume.pdf",
+    "social": {
+      "github": "https://github.com/AKAAE86",
+      "linkedin": "https://linkedin.com/in/kkyanghao",
+      "email": "kkneverlie@gmail.com"
+    },
+    "skills": [
+      "Android",
+      "Kotlin",
+      "Swift",
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "GraphQL"
+    ]
+  }
+} 

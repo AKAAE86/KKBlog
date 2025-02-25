@@ -1,0 +1,49 @@
+{
+  "about": {
+    "bio1": "一个喜欢各种新事物的程序员。目前专注于移动端和前端。主业是安卓开发，21年毕业，在字节和快手都呆过，业余折腾下自己的小项目。",
+    "bio2": ""
+  },
+  "sections": {
+    "skills": "技能",
+    "achievements": "成就",
+    "projects": "项目"
+  },
+  "achievements": {
+    "patent": {
+      "title": "荣誉",
+      "desc": "在Telegram举办的开发竞赛中获奖",
+      "link": "https://contest.com/user/Mighty-Fly"
+    }
+  },
+  "blog": {
+    "back": "返回",
+    "notFound": "文章未找到"
+  },
+  "nav": {
+    "home": "主页",
+    "blog": "博客"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "抖音",
+      "description": "负责抖音主应用社交功能的客户端开发",
+      "image": "/images/douyin.jpg",
+      "url": "https://www.douyin.com"
+    },
+    {
+      "id": 2,
+      "title": "快手",
+      "description": "负责快手App直播功能的Android端开发",
+      "image": "/images/kuaishou.png",
+      "url": "https://www.kuaishou.com/"
+    },
+    {
+      "id": 3,
+      "title": "芒果TV",
+      "description": "负责芒果TV App的点播系统和内容流的Android端开发",
+      "image": "/images/mangotv.jpg",
+      "url": "https://play.google.com/store/apps/details?id=com.hunantv.imgo.activity.inter"
+    }
+  ]
+} 
