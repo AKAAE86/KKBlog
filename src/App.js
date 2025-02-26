@@ -9,6 +9,11 @@ import {
   SiReact, SiPython, SiDocker, SiJavascript, SiNodedotjs,
   SiMongodb, SiGit, SiMysql, SiRedis
 } from 'react-icons/si';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import BlogList from './components/BlogList';
+import BlogPost from './components/BlogPost';
+import { loadBlogPosts } from './utils/blogLoader';
+import { IoLanguage } from 'react-icons/io5';
 
 function App() {
   const { personalInfo } = config;
@@ -28,11 +33,47 @@ function App() {
     localStorage.getItem('theme') || 'dark'
   );
 
+  // 添加博客文章状态
+  const [posts, setPosts] = useState([]);
+
+  // 添加当前 tab 状态
+  const [activeTab, setActiveTab] = useState(
+    window.location.pathname === '/blog' ? 'blog' : 'home'
+  );
+
   useEffect(() => {
     localStorage.setItem('locale', locale);
     localStorage.setItem('theme', theme);
     document.body.setAttribute('data-theme', theme);
   }, [locale, theme]);
+
+  // 修改博客文章加载逻辑
+  useEffect(() => {
+    console.log('Starting to load blog posts in App...');
+    loadBlogPosts()
+      .then(loadedPosts => {
+        console.log('Successfully loaded posts:', loadedPosts);
+        if (Array.isArray(loadedPosts)) {
+          setPosts(loadedPosts);
+        } else {
+          console.error('Loaded posts is not an array:', loadedPosts);
+          setPosts([]);
+        }
+      })
+      .catch(error => {
+        console.error('Failed to load posts:', error);
+        setPosts([]);
+      });
+  }, []);
+
+  // 更新路由时同步 tab
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setActiveTab(window.location.pathname === '/blog' ? 'blog' : 'home');
+    };
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
 
   const toggleLocale = () => {
     setLocale(prev => prev === 'zh' ? 'en' : 'zh');
@@ -73,131 +114,156 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <div className="theme-controls">
         <button className="language-toggle" onClick={toggleLocale}>
-          {locale === 'zh' ? 'EN' : '中'}
+          <IoLanguage />
         </button>
         <button className="theme-toggle" onClick={toggleTheme}>
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
       </div>
 
-      <div className="slogan-container">
-        <h1 className="typewriter">
-          {`"${slogans[currentSlogan]}"`.split('').map((char, index) => (
-            <span key={`${currentSlogan}-${index}`}>{char}</span>
-          ))}
-        </h1>
-      </div>
-      <div className="profile-container">
-        <div className="profile-header">
-          <div className="profile-avatar">
-            <img src={personalInfo.avatar} alt={personalInfo.name} />
-          </div>
-          <h1 className="profile-name">{personalInfo.name}</h1>
-          <p className="profile-title">{personalInfo.title}</p>
-          
-          <div className="about-section">
-            <p className="profile-bio">{t.about.bio1}</p>
-            <p className="profile-bio">{t.about.bio2}</p>
-          </div>
+      <nav className="tab-bar">
+        <Link 
+          to="/" 
+          className={`tab-item ${activeTab === 'home' ? 'active' : ''}`}
+          onClick={() => setActiveTab('home')}
+        >
+          {locale === 'zh' ? '主页' : 'Home'}
+        </Link>
+        <Link 
+          to="/blog" 
+          className={`tab-item ${activeTab === 'blog' ? 'active' : ''}`}
+          onClick={() => setActiveTab('blog')}
+        >
+          {locale === 'zh' ? '博客' : 'Blog'}
+        </Link>
+      </nav>
 
-          <div className="social-links-grid">
-            {personalInfo.social.github && (
-              <a href={personalInfo.social.github} className="social-card" target="_blank" rel="noopener noreferrer">
-                <div className="social-icon">{socialIcons.github}</div>
-              </a>
-            )}
-
-            {personalInfo.social.linkedin && (
-              <a href={personalInfo.social.linkedin} className="social-card" target="_blank" rel="noopener noreferrer">
-                <div className="social-icon">
-                  {socialIcons.linkedin}
-                </div>
-              </a>
-            )}
-
-            {personalInfo.social.email && (
-              <a href={`mailto:${personalInfo.social.email}`} className="social-card">
-                <div className="social-icon">
-                  {socialIcons.email}
-                </div>
-              </a>
-            )}
-          </div>
-        </div>
-
-        <div className="content-section">
-          <section className="skills-section">
-            <h2 className="section-title">{t.sections.skills}</h2>
-            <div className="skills-grid">
-              {personalInfo.skills.map(skill => (
-                <div key={skill} className="skill-card" title={skill}>
-                  <div className="skill-icon">{skillIcons[skill]}</div>
-                  <span className="skill-name">{skill}</span>
-                </div>
-              ))}
+      <Routes>
+        <Route path="/" element={
+          <>
+            <div className="slogan-container">
+              <h1 className="typewriter">
+                {`"${slogans[currentSlogan]}"`.split('').map((char, index) => (
+                  <span key={`${currentSlogan}-${index}`}>{char}</span>
+                ))}
+              </h1>
             </div>
-          </section>
+            <div className="profile-container">
+              <div className="profile-header">
+                <div className="profile-avatar">
+                  <img src={personalInfo.avatar} alt={personalInfo.name} />
+                </div>
+                <h1 className="profile-name">{personalInfo.name}</h1>
+                <p className="profile-title">{personalInfo.title}</p>
+                
+                <div className="about-section">
+                  <p className="profile-bio">{t.about.bio1}</p>
+                  <p className="profile-bio">{t.about.bio2}</p>
+                </div>
 
-          <section className="portfolio-section">
-            <h2 className="section-title">{t.sections.achievements}</h2>
-            
-            <div className="card-grid">
-              <div className="portfolio-card">
-                <div className="card-icon">🏆</div>
-                <div className="card-content">
-                  <h3>{t.achievements.patent.title}</h3>
-                  <p>{t.achievements.patent.desc}</p>
-                </div>
-              </div>
-              <div className="portfolio-card">
-                <div className="card-icon">📚</div>
-                <div className="card-content">
-                  <h3>{t.achievements.articles.title}</h3>
-                  <p>{t.achievements.articles.desc}</p>
-                </div>
-              </div>
-              <div className="portfolio-card">
-                <div className="card-icon">🎯</div>
-                <div className="card-content">
-                  <h3>{t.achievements.opensource.title}</h3>
-                  <p>{t.achievements.opensource.desc}</p>
-                </div>
-              </div>
-              <div className="portfolio-card">
-                <div className="card-icon">🎓</div>
-                <div className="card-content">
-                  <h3>{t.achievements.certification.title}</h3>
-                  <p>{t.achievements.certification.desc}</p>
-                </div>
-              </div>
-            </div>
+                <div className="social-links-grid">
+                  {personalInfo.social.github && (
+                    <a href={personalInfo.social.github} className="social-card" target="_blank" rel="noopener noreferrer">
+                      <div className="social-icon">{socialIcons.github}</div>
+                    </a>
+                  )}
 
-            <div className="projects-grid">
-              {config.projects.map(project => (
-                <a 
-                  key={project.id} 
-                  href={project.demoUrl || project.githubUrl} 
-                  className="project-card"
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <div className="project-image">
-                    <img src={project.image} alt={project.title} />
+                  {personalInfo.social.linkedin && (
+                    <a href={personalInfo.social.linkedin} className="social-card" target="_blank" rel="noopener noreferrer">
+                      <div className="social-icon">
+                        {socialIcons.linkedin}
+                      </div>
+                    </a>
+                  )}
+
+                  {personalInfo.social.email && (
+                    <a href={`mailto:${personalInfo.social.email}`} className="social-card">
+                      <div className="social-icon">
+                        {socialIcons.email}
+                      </div>
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <div className="content-section">
+                <section className="skills-section">
+                  <h2 className="section-title">{t.sections.skills}</h2>
+                  <div className="skills-grid">
+                    {personalInfo.skills.map(skill => (
+                      <div key={skill} className="skill-card" title={skill}>
+                        <div className="skill-icon">{skillIcons[skill]}</div>
+                        <span className="skill-name">{skill}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="project-content">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
+                </section>
+
+                <section className="portfolio-section">
+                  <h2 className="section-title">{t.sections.achievements}</h2>
+                  
+                  <div className="card-grid">
+                    <div className="portfolio-card">
+                      <div className="card-icon">🏆</div>
+                      <div className="card-content">
+                        <h3>{t.achievements.patent.title}</h3>
+                        <p>{t.achievements.patent.desc}</p>
+                      </div>
+                    </div>
+                    <div className="portfolio-card">
+                      <div className="card-icon">📚</div>
+                      <div className="card-content">
+                        <h3>{t.achievements.articles.title}</h3>
+                        <p>{t.achievements.articles.desc}</p>
+                      </div>
+                    </div>
+                    <div className="portfolio-card">
+                      <div className="card-icon">🎯</div>
+                      <div className="card-content">
+                        <h3>{t.achievements.opensource.title}</h3>
+                        <p>{t.achievements.opensource.desc}</p>
+                      </div>
+                    </div>
+                    <div className="portfolio-card">
+                      <div className="card-icon">🎓</div>
+                      <div className="card-content">
+                        <h3>{t.achievements.certification.title}</h3>
+                        <p>{t.achievements.certification.desc}</p>
+                      </div>
+                    </div>
                   </div>
-                </a>
-              ))}
+
+                  <div className="projects-grid">
+                    {config.projects.map(project => (
+                      <a 
+                        key={project.id} 
+                        href={project.demoUrl || project.githubUrl} 
+                        className="project-card"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <div className="project-image">
+                          <img src={project.image} alt={project.title} />
+                        </div>
+                        <div className="project-content">
+                          <h3>{project.title}</h3>
+                          <p>{project.description}</p>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              </div>
             </div>
-          </section>
-        </div>
-      </div>
-    </>
+          </>
+        } />
+        <Route path="/blog" element={<BlogList posts={posts} locale={locale} />} />
+        <Route path="/blog/:slug" element={<BlogPost posts={posts} locale={locale} />} />
+      </Routes>
+    </Router>
   );
 }
 

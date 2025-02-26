@@ -24,5 +24,13 @@
       "title": "Certification",
       "desc": "AWS Certified Solutions Architect"
     }
+  },
+  "blog": {
+    "back": "Back",
+    "notFound": "Post not found"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog"
   }
 } 
