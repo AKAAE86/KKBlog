@@ -1,0 +1,28 @@
+{
+  "about": {
+    "bio1": "I am a full-stack developer focused on building high-quality web applications. Over the past few years, I have participated in the development of multiple large-scale projects, covering various domains from e-commerce to enterprise management systems.",
+    "bio2": "I am passionate about learning new technologies and actively contribute to the open-source community. I believe technology not only improves efficiency but, more importantly, creates value and enhances user experience."
+  },
+  "sections": {
+    "skills": "Skills",
+    "achievements": "Achievements & Projects"
+  },
+  "achievements": {
+    "patent": {
+      "title": "Technical Patents",
+      "desc": "Obtained 2 technical patents in distributed system architecture"
+    },
+    "articles": {
+      "title": "Technical Writing",
+      "desc": "Published 50+ technical articles with over 100k total views"
+    },
+    "opensource": {
+      "title": "Open Source",
+      "desc": "Contributed to multiple well-known open source projects, gained 500+ stars"
+    },
+    "certification": {
+      "title": "Certification",
+      "desc": "AWS Certified Solutions Architect"
+    }
+  }
+} 
