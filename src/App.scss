@@ -1,3 +1,5 @@
+@import './styles/animations.scss';
+
 // 主题变量
 :root {
   // 深色主题（默认）
@@ -914,4 +916,21 @@ body {
   background: $card-bg;
   border-radius: 16px;
   margin-top: 1rem;
+}
+
+// 为各种卡片添加呼吸效果类
+.social-card {
+  @extend .breathing-effect;
+}
+
+.skill-card {
+  @extend .breathing-effect;
+}
+
+.portfolio-card {
+  @extend .breathing-effect;
+}
+
+.project-card {
+  @extend .breathing-effect;
 } 

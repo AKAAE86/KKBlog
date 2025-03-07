@@ -30,7 +30,7 @@ function App() {
   const t = locale === 'zh' ? zhLocale : enLocale;
 
   const [theme, setTheme] = useState(
-    localStorage.getItem('theme') || 'dark'
+    localStorage.getItem('theme') || 'light'
   );
 
   // 添加博客文章状态

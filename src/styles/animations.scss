@@ -1,0 +1,37 @@
+@keyframes breathe {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.015);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+// 暗色主题下的动画
+[data-theme='dark'] {
+  .breathing-effect {
+    animation: breathe 3.5s infinite ease-in-out;
+    
+    &:hover {
+      animation: breathe 2.5s infinite ease-in-out;
+    }
+  }
+}
+
+// 亮色主题下的动画
+[data-theme='light'] {
+  .breathing-effect {
+    animation: breathe 3.5s infinite ease-in-out;
+    
+    &:hover {
+      animation: breathe 2.5s infinite ease-in-out;
+    }
+  }
+}
+
+.breathing-effect {
+  transition: all 0.3s ease;
+} 
