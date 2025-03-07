@@ -3,8 +3,8 @@ import './App.scss';
 import config from './data/config.json';
 import enLocale from './data/locales/en.json';
 import zhLocale from './data/locales/zh.json';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import { SiLeetcode, SiJuejin } from 'react-icons/si';
+import { FaGithub, FaLinkedin, FaEnvelope, FaJava } from 'react-icons/fa';
+import { SiLeetcode, SiJuejin, SiAndroid, SiKotlin, SiTypescript, SiSwift, SiGraphql } from 'react-icons/si';
 import { 
   SiReact, SiPython, SiDocker, SiJavascript, SiNodedotjs,
   SiMongodb, SiGit, SiMysql, SiRedis
@@ -50,7 +50,7 @@ function App() {
   // 修改博客文章加载逻辑
   useEffect(() => {
     console.log('Starting to load blog posts in App...');
-    loadBlogPosts()
+    loadBlogPosts({ locale })
       .then(loadedPosts => {
         console.log('Successfully loaded posts:', loadedPosts);
         if (Array.isArray(loadedPosts)) {
@@ -64,7 +64,7 @@ function App() {
         console.error('Failed to load posts:', error);
         setPosts([]);
       });
-  }, []);
+  }, [locale]);
 
   // 更新路由时同步 tab
   useEffect(() => {
@@ -103,14 +103,13 @@ function App() {
   // 定义技术栈图标映射
   const skillIcons = {
     'React': <SiReact />,
-    'Python': <SiPython />,
-    'Docker': <SiDocker />,
+    'Android': <SiAndroid />,
+    'Java': <FaJava />,
     'JavaScript': <SiJavascript />,
-    'Node.js': <SiNodedotjs />,
-    'MongoDB': <SiMongodb />,
-    'Git': <SiGit />,
-    'MySQL': <SiMysql />,
-    'Redis': <SiRedis />
+    'Kotlin': <SiKotlin />,
+    'TypeScript': <SiTypescript />,
+    'Swift': <SiSwift />,
+    "GraphQL": <SiGraphql />
   };
 
   return (
@@ -204,43 +203,48 @@ function App() {
 
                 <section className="portfolio-section">
                   <h2 className="section-title">{t.sections.achievements}</h2>
-                  
                   <div className="card-grid">
-                    <div className="portfolio-card">
-                      <div className="card-icon">🏆</div>
-                      <div className="card-content">
-                        <h3>{t.achievements.patent.title}</h3>
-                        <p>{t.achievements.patent.desc}</p>
-                      </div>
-                    </div>
-                    <div className="portfolio-card">
-                      <div className="card-icon">📚</div>
-                      <div className="card-content">
-                        <h3>{t.achievements.articles.title}</h3>
-                        <p>{t.achievements.articles.desc}</p>
-                      </div>
-                    </div>
-                    <div className="portfolio-card">
-                      <div className="card-icon">🎯</div>
-                      <div className="card-content">
-                        <h3>{t.achievements.opensource.title}</h3>
-                        <p>{t.achievements.opensource.desc}</p>
-                      </div>
-                    </div>
-                    <div className="portfolio-card">
-                      <div className="card-icon">🎓</div>
-                      <div className="card-content">
-                        <h3>{t.achievements.certification.title}</h3>
-                        <p>{t.achievements.certification.desc}</p>
-                      </div>
-                    </div>
+                    {Object.keys(t.achievements).map(key => (
+                      t.achievements[key].link ? (
+                        <a 
+                          key={key}
+                          href={t.achievements[key].link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ 
+                            display: 'block',
+                            color: 'inherit',
+                            textDecoration: 'none'
+                          }}
+                        >
+                          <div className="portfolio-card">
+                            <div className="card-icon">{t.achievements[key].icon || '🏆'}</div>
+                            <div className="card-content">
+                              <h3>{t.achievements[key].title}</h3>
+                              <p>{t.achievements[key].desc}</p>
+                            </div>
+                          </div>
+                        </a>
+                      ) : (
+                        <div className="portfolio-card" key={key}>
+                          <div className="card-icon">{t.achievements[key].icon || '🏆'}</div>
+                          <div className="card-content">
+                            <h3>{t.achievements[key].title}</h3>
+                            <p>{t.achievements[key].desc}</p>
+                          </div>
+                        </div>
+                      )
+                    ))}
                   </div>
+                </section>
 
+                <section className="projects-section">
+                  <h2 className="section-title">{t.sections.projects}</h2>
                   <div className="projects-grid">
-                    {config.projects.map(project => (
+                    {t.projects.map(project => (
                       <a 
                         key={project.id} 
-                        href={project.demoUrl || project.githubUrl} 
+                        href={project.url} 
                         className="project-card"
                         target="_blank" 
                         rel="noopener noreferrer"

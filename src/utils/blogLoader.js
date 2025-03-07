@@ -22,16 +22,16 @@ function formatDate(dateStr) {
   }
 }
 
-export async function loadBlogPosts() {
+export async function loadBlogPosts({ locale }) {
   try {
-    console.log('Starting to load blog posts...');
+    console.log('Starting to load blog posts...' + locale);
     
     // 使用 webpack 的动态导入来加载所有 markdown 文件
     const markdownContext = require.context('../data/posts', true, /\.md$/);
     console.log('Found markdown files:', markdownContext.keys());
 
     const posts = await Promise.all(
-      markdownContext.keys().map(async (path) => {
+      markdownContext.keys().filter((path) => String(path).includes(locale)).map(async (path) => {
         try {
           // 获取文件名作为 slug
           const slug = path.replace(/^\.\/(.*)\.md$/, '$1');
