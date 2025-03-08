@@ -952,6 +952,7 @@ body {
   justify-content: center;
   backdrop-filter: blur(8px);
   transition: transform 0.2s ease;
+  z-index: 1000;
 
   svg {
     width: 20px;
