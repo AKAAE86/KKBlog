@@ -591,8 +591,8 @@ body {
     overflow: hidden;
 
     svg {
-      width: 24px !important; // 强制设置图标大小
-      height: 24px !important;
+      width: 20px;
+      height: 20px;
     }
 
     &::before {
@@ -622,23 +622,9 @@ body {
     }
   }
 
-  .language-toggle {
-    font-size: 1.2rem;
-  }
-}
-
-// 响应式调整
-@media (max-width: 768px) {
-  .theme-controls {
+  @media (max-width: 768px) {
     top: 1rem;
     right: 1rem;
-
-    button {
-      svg {
-        width: 20px !important; // 移动端稍微小一点
-        height: 20px !important;
-      }
-    }
   }
 }
 

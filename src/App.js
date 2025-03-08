@@ -116,7 +116,7 @@ function App() {
     <Router>
       <div className="theme-controls">
         <button className="language-toggle" onClick={toggleLocale}>
-          <IoLanguageOutline />
+          <FaLanguage />
         </button>
         <button onClick={toggleTheme}>
           {theme === 'dark' ? '☀️' : '🌙'}
