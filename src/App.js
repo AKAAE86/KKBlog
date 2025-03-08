@@ -115,7 +115,7 @@ function App() {
   return (
     <Router>
       <div className="theme-controls">
-        <button onClick={toggleLocale}>
+        <button className="language-toggle" onClick={toggleLocale}>
           <IoLanguageOutline />
         </button>
         <button onClick={toggleTheme}>
