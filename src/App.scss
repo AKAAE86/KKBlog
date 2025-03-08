@@ -933,4 +933,37 @@ body {
 
 .project-card {
   @extend .breathing-effect;
+}
+
+// 语言切换按钮样式
+.language-toggle {
+  position: fixed;
+  top: 2rem;
+  right: calc(2rem + 50px);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: rgba($dark, 0.7);
+  color: $primary;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    top: 1rem;
+    right: calc(1rem + 50px);
+  }
 } 

@@ -115,13 +115,13 @@ function App() {
   return (
     <Router>
       <div className="theme-controls">
-        <button className="language-toggle" onClick={toggleLocale}>
-          <FaLanguage />
-        </button>
         <button onClick={toggleTheme}>
           {theme === 'dark' ? '☀️' : '🌙'}
         </button>
       </div>
+      <button className="language-toggle" onClick={toggleLocale}>
+        <FaLanguage />
+      </button>
 
       <nav className="tab-bar">
         <Link 
