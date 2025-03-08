@@ -3,8 +3,8 @@ import './App.scss';
 import config from './data/config.json';
 import enLocale from './data/locales/en.json';
 import zhLocale from './data/locales/zh.json';
-import { FaGithub, FaLinkedin, FaEnvelope, FaJava } from 'react-icons/fa';
-import { SiLeetcode, SiJuejin, SiAndroid, SiKotlin, SiTypescript, SiSwift, SiGraphql } from 'react-icons/si';
+import { FaGithub, FaLinkedin, FaEnvelope, FaJava, FaLanguage } from 'react-icons/fa';
+import { SiLeetcode, SiJuejin, SiAndroid, SiKotlin, SiTypescript, SiSwift, SiGraphql, SiLanguagetool } from 'react-icons/si';
 import { 
   SiReact, SiPython, SiDocker, SiJavascript, SiNodedotjs,
   SiMongodb, SiGit, SiMysql, SiRedis
@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BlogList from './components/BlogList';
 import BlogPost from './components/BlogPost';
 import { loadBlogPosts } from './utils/blogLoader';
-import { IoLanguage } from 'react-icons/io5';
+import { IoLanguage, IoLanguageOutline } from 'react-icons/io5';
 
 function App() {
   const { personalInfo } = config;
@@ -116,7 +116,7 @@ function App() {
     <Router>
       <div className="theme-controls">
         <button onClick={toggleLocale}>
-          <IoLanguage />
+          <IoLanguageOutline />
         </button>
         <button onClick={toggleTheme}>
           {theme === 'dark' ? '☀️' : '🌙'}
