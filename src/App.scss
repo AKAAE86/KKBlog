@@ -590,6 +590,11 @@ body {
     position: relative;
     overflow: hidden;
 
+    svg {
+      width: 24px !important; // 强制设置图标大小
+      height: 24px !important;
+    }
+
     &::before {
       content: '';
       position: absolute;
@@ -615,11 +620,6 @@ body {
     &:active {
       transform: translateY(0);
     }
-
-    svg {
-      width: 1.2em;
-      height: 1.2em;
-    }
   }
 
   .language-toggle {
@@ -632,6 +632,13 @@ body {
   .theme-controls {
     top: 1rem;
     right: 1rem;
+
+    button {
+      svg {
+        width: 20px !important; // 移动端稍微小一点
+        height: 20px !important;
+      }
+    }
   }
 }
 
